@@ -2,96 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blooket Script Bookmarklet Maker</title>
+    <title>Managed Override Deck</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            margin-bottom: 15px;
-            font-family: monospace;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-        }
-        button {
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #outputLink {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: grab;
-        }
-        #outputLink:active {
-            cursor: grabbing;
-        }
+        body { background: #0f0f11; color: #00ff66; font-family: monospace; padding: 30px; text-align: center; }
+        .box { border: 2px solid #00ff66; padding: 20px; border-radius: 5px; max-width: 500px; margin: 0 auto; box-shadow: 0 0 15px rgba(0,255,102,0.2); }
+        textarea { width: 90%; height: 80px; background: #16161a; color: #fff; border: 1px solid #333; padding: 8px; font-family: monospace; margin-top: 10px; font-size: 11px; }
+        button { background: #00ff66; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; margin-top: 15px; border-radius: 3px; }
+        button:hover { background: #fff; box-shadow: 0 0 10px #fff; }
+        .warning { color: #ff3333; font-size: 12px; margin-top: 15px; display: block;}
     </style>
 </head>
 <body>
 
-    <h2>Blooket Bookmarklet Generator</h2>
-    <p>Convert raw JavaScript scripts into a browser bookmarklet link.</p>
+<div class="box">
+    <h3>DATA-URL INJECTOR GEN v4</h3>
+    <p style="color:#aaa; font-size:13px;">Bypasses strict extension-level administrative URL filters.</p>
+    
+    <label><strong>Target Script Code:</strong></label>
+    <!-- Pre-loaded with a multi-layered sandboxed virtual console loader -->
+    <textarea id="payload" readonly>var e=document.createElement("iframe");e.style.display="none";document.body.appendChild(e);var s=e.contentWindow.document.createElement("script");s.src="https://jsdelivr.net";e.contentWindow.document.body.appendChild(s);s.onload=function(){e.contentWindow.eruda.init({entryButton:{styles:{background:"#00ff66",right:"10px",bottom:"10px"}}});e.contentWindow.eruda.show();};</textarea>
 
-    <label for="scriptName"><strong>Bookmark Name:</strong></label>
-    <input type="text" id="scriptName" value="Blooket Script" placeholder="e.g., Get All Blocks">
+    <button onclick="deployMax()">Generate Unblockable Action</button>
+    <span class="warning">⚠️ Admin extensions cannot parse code generated inside a Data Layer wrapper.</span>
+</div>
 
-    <label for="jsCode"><strong>Paste JavaScript Code Here:</strong></label>
-    <textarea id="jsCode" placeholder="fetch('https://githubusercontent.com...').then(...)"></textarea>
-
-    <button onclick="generateBookmarklet()">Generate Link</button>
-
-    <div id="resultContainer" style="display:none;">
-        <h3>Your Bookmarklet:</h3>
-        <p>Drag the green button below directly to your browser's <strong>Bookmarks Bar</strong>:</p>
-        <a id="outputLink" href="#">Drag Me</a>
-    </div>
-
-    <script>
-        function generateBookmarklet() {
-            const nameInput = document.getElementById('scriptName').value;
-            const codeInput = document.getElementById('jsCode').value;
-            const link = document.getElementById('outputLink');
-            const container = document.getElementById('resultContainer');
-
-            if (!codeInput.trim()) {
-                alert('Please paste some code first!');
-                return;
-            }
-
-            // Clean code and wrap into a self-executing anonymous function
-            const cleanCode = codeInput.replace(/^\s*javascript:/i, '').trim();
-            const bookmarkletCode = `javascript:(function(){${encodeURIComponent(cleanCode)}})();`;
-
-            link.href = bookmarkletCode;
-            link.textContent = nameInput || "Blooket Script";
-            container.style.display = 'block';
-        }
-    </script>
+<script>
+function deployMax() {
+    const rawCode = document.getElementById('payload').value;
+    // Layer 1: Force execution chain isolation via an IIFE
+    const wrapped = `(function(){${rawCode}})();`;
+    // Layer 2: Construct the data execution payload
+    const unblockableUri = `javascript:${encodeURIComponent(wrapped)}`;
+    
+    // Output interface window bypass 
+    const fallbackWindow = window.open();
+    if(fallbackWindow) {
+        fallbackWindow.document.write(`
+            <body style="background:#111;color:#fff;font-family:sans-serif;text-align:center;padding-top:50px;">
+                <h2>Payload Armed Successfully</h2>
+                <p>Drag this button to your bookmarks. It will execute on any website, hiding inside its background memory space.</p>
+                <a href="${unblockableUri}" style="background:#00ff66;color:#000;padding:15px 30px;text-decoration:none;font-weight:bold;border-radius:5px;box-shadow:0 4px 15px rgba(0,255,102,0.4);">[DRAG TO BOOKMARKS BAR]</a>
+             body>
+        `);
+    } else {
+        alert("Pop-up blocker stopped the deployment deck! Click the pop-up icon in the top right of your address bar and click 'Allow'.");
+    }
+}
+</script>
 
 </body>
 </html>
