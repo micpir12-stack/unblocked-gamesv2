@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Bowl</title>
+    <style>
+        body {
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        canvas {
+            border: 2px solid #000;
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+    <!-- The canvas element the game draws to -->
+    <canvas id="canvas" width="960" height="640"></canvas>
+
+    <!-- Game script initialization -->
+    <script type="text/javascript" src="html5game/RetroBowl.js"></script>
+    <script>
+        window.onload = function() {
+            // Initialize game engine if source files are present locally
+            if (typeof GameMaker_Init === 'function') {
+                GameMaker_Init();
+            }
+        };
+    </script>
+</body>
+</html>
