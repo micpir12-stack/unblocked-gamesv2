@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Single-File Proxy Frontend</title>
+  <style>
+    body { font-family: sans-serif; background: #121212; color: #fff; padding: 20px; }
+    input, button { padding: 10px; font-size: 16px; margin: 5px 0; }
+    input { width: 70%; }
+    button { cursor: pointer; }
+    iframe { width: 100%; height: 500px; border: 1px solid #444; margin-top: 10px; background: #fff; }
+  </style>
+</head>
+<body>
+
+  <h1>Static Web Proxy Interface</h1>
+  <input type="text" id="urlInput" placeholder="Enter website URL (e.g., example.com)" />
+  <button onclick="loadProxy()">Go</button>
+
+  <iframe id="proxyFrame"></iframe>
+
+  <script>
+    function loadProxy() {
+      let input = document.getElementById('urlInput').value.trim();
+      if (!input) return;
+
+      // Automatically prepend https:// if missing
+      if (!/^https?:\/\//i.test(input)) {
+        input = 'https://' + input;
+      }
+
+      // Note: Real cross-site proxying requires a backend or CORS bypass / service worker.
+      // In a true single-file client-side setup (like GUST/Mercury Workshop models), 
+      // JavaScript rewrites or service workers handle the inner payload.
+      document.getElementById('proxyFrame').src = input;
+    }
+  </script>
+
+</body>
+</html>
